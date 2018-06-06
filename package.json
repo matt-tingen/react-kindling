@@ -53,6 +53,7 @@
       "react-app"
     ],
     "plugins": [
+      "transform-react-render-parameters",
       [
         "emotion",
         {
@@ -67,5 +68,6 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "babel-plugin-emotion": "^9.1.2",
+    "babel-plugin-transform-react-render-parameters": "^0.3.0"
   }
 }
