@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "eslint.options": {
+    "configFile": "node_modules/eslint-config-react-app/index.js"
+  }
+}
