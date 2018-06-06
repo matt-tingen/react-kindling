@@ -1,6 +1,7 @@
-import { css } from 'emotion';
-import React, { Component } from 'react';
-import Header from './Header';
+import { css } from 'emotion'
+import React, { Component } from 'react'
+import Header from './Header'
+import Items from './Items'
 
 const classes = {
   container: css`
@@ -9,7 +10,7 @@ const classes = {
   intro: css`
     font-size: large;
   `,
-};
+}
 
 class App extends Component {
   render() {
@@ -19,9 +20,10 @@ class App extends Component {
         <p className={classes.intro}>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Items />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
