@@ -1,5 +1,6 @@
 import { css } from 'emotion'
 import React, { Component } from 'react'
+import AddItem from './AddItem'
 import Header from './Header'
 import Items from './Items'
 
@@ -20,6 +21,7 @@ class App extends Component {
         <p className={classes.intro}>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <AddItem />
         <Items />
       </div>
     )
