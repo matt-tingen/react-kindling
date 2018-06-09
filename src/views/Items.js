@@ -25,4 +25,7 @@ const Items = ({ docs, deleteItem }) => {
   )
 }
 
-export default firestoreList('items')(Items)
+export default firestoreList({
+  collection: 'items',
+  orderBy: [['name', 'asc']],
+})(Items)
