@@ -1,20 +1,18 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { firestoreConnect, isEmpty, isLoaded } from 'react-redux-firebase'
-import { withHandlers } from 'recompose'
-import { compose } from 'redux'
+import { isEmpty, isLoaded } from 'react-redux-firebase'
+import firestoreList from '../hocs/firestoreList'
 import MiniDeleteButton from './MiniDeleteButton'
 
-const Items = ({ items, deleteItem }) => {
-  const itemsList = !isLoaded(items)
+const Items = ({ docs, deleteItem }) => {
+  const itemsList = !isLoaded(docs)
     ? 'Loading'
-    : isEmpty(items)
+    : isEmpty(docs)
       ? 'Item list is empty'
-      : Object.keys(items).map(
+      : Object.keys(docs).map(
           id =>
-            items[id] && (
+            docs[id] && (
               <li key={id}>
-                {items[id].name}
+                {docs[id].name}
                 <MiniDeleteButton onClick={() => deleteItem(id)} />
               </li>
             ),
@@ -27,14 +25,4 @@ const Items = ({ items, deleteItem }) => {
   )
 }
 
-const collection = 'items'
-
-export default compose(
-  firestoreConnect([collection]),
-  connect(state => ({
-    items: state.firestore.data.items,
-  })),
-  withHandlers({
-    deleteItem: ({ firestore }) => doc => firestore.delete({ collection, doc }),
-  }),
-)(Items)
+export default firestoreList('items')(Items)
