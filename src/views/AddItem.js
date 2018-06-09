@@ -1,14 +1,10 @@
 import React from 'react'
-import { Field } from 'redux-form'
 import firestoreForm from '../hocs/firestoreForm'
+import FormField from './FormField'
 
 const AddItem = ({ handleSubmit }) => (
   <form onSubmit={handleSubmit}>
-    <div>
-      <label htmlFor="name">Name</label>
-      <Field name="name" component="input" type="text" />
-    </div>
-
+    <FormField name="name" component="input" type="text" />
     <button type="submit">Add</button>
   </form>
 )
