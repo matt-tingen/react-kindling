@@ -1,8 +1,10 @@
 import { css } from 'emotion'
 import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
 import AddItem from './AddItem'
 import Header from './Header'
 import Items from './Items'
+import NavBar from './NavBar'
 
 const classes = {
   container: css`
@@ -18,11 +20,11 @@ class App extends Component {
     return (
       <div className={classes.container}>
         <Header>Welcome to React</Header>
-        <p className={classes.intro}>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <AddItem />
-        <Items />
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={Items} />
+          <Route path="/add" component={AddItem} />
+        </Switch>
       </div>
     )
   }
