@@ -1,5 +1,14 @@
-import _ from 'lodash'
 import React, { Component } from 'react'
+import styled from 'react-emotion'
+import { withProps } from 'recompose'
+
+const Dot = withProps({
+  children: '.',
+})(
+  styled.span(({ visible }) => ({
+    visibility: visible ? 'visible' : 'hidden',
+  })),
+)
 
 class Loading extends Component {
   state = {
@@ -17,7 +26,14 @@ class Loading extends Component {
   }
 
   render(props, { tick }) {
-    return <span>Loading{_.repeat('.', tick)}</span>
+    return (
+      <span>
+        Loading
+        <Dot visible={tick > 0} />
+        <Dot visible={tick > 1} />
+        <Dot visible={tick > 2} />
+      </span>
+    )
   }
 }
 
