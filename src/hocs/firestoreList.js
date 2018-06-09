@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
-import { firestoreConnect } from 'react-redux-firebase'
-import { withHandlers } from 'recompose'
+import { firestoreConnect, isEmpty, isLoaded } from 'react-redux-firebase'
+import { branch, renderComponent, withHandlers } from 'recompose'
 import { compose } from 'redux'
 
 const collectionName = query =>
   typeof query === 'string' ? query : query.collection
 
-const firestoreList = query => {
+const firestoreList = (query, options) => {
   const collection = collectionName(query)
 
   return compose(
@@ -18,6 +18,11 @@ const firestoreList = query => {
       deleteDoc: ({ firestore }) => doc =>
         firestore.delete({ collection, doc }),
     }),
+    branch(
+      ({ docs }) => !isLoaded(docs),
+      renderComponent(options.loading),
+      branch(({ docs }) => isEmpty(docs), renderComponent(options.empty)),
+    ),
   )
 }
 export default firestoreList
