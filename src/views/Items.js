@@ -1,18 +1,9 @@
 import React from 'react'
-import styled from 'react-emotion'
 import { connect } from 'react-redux'
 import { firestoreConnect, isEmpty, isLoaded } from 'react-redux-firebase'
-import { withHandlers, withProps } from 'recompose'
+import { withHandlers } from 'recompose'
 import { compose } from 'redux'
-
-const MiniDeleteButton = withProps({
-  type: 'button',
-  children: 'X',
-})(styled.button`
-  margin: 10px;
-  color: red;
-  font-weight: bold;
-`)
+import MiniDeleteButton from './MiniDeleteButton'
 
 const Items = ({ items, deleteItem }) => {
   const itemsList = !isLoaded(items)
