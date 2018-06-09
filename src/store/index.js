@@ -2,6 +2,7 @@ import { firebaseReducer, reactReduxFirebase } from 'react-redux-firebase'
 import { combineReducers, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { firestoreReducer, reduxFirestore } from 'redux-firestore'
+import { reducer as formReducer } from 'redux-form'
 import firebase from './firebase'
 
 const reactReduxConfig = {
@@ -17,6 +18,7 @@ const createStoreWithFirebase = composeWithDevTools(
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
   firestore: firestoreReducer,
+  form: formReducer,
 })
 
 // Create store with reducers and initial state

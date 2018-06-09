@@ -1,21 +1,16 @@
 import React from 'react'
-import { withFirestore } from 'react-redux-firebase'
-import { compose, withHandlers } from 'recompose'
+import { Field } from 'redux-form'
+import firestoreForm from '../hocs/firestoreForm'
 
-const AddItem = ({ addItem }) => (
-  <form onSubmit={addItem}>
-    <input type="text" placeholder="Item Name" name="name" />
+const AddItem = ({ handleSubmit }) => (
+  <form onSubmit={handleSubmit}>
+    <div>
+      <label htmlFor="name">Name</label>
+      <Field name="name" component="input" type="text" />
+    </div>
+
     <button type="submit">Add</button>
   </form>
 )
 
-export default compose(
-  withFirestore,
-  withHandlers({
-    addItem: ({ firestore }) => event => {
-      event.preventDefault()
-      const formData = new FormData(event.target)
-      firestore.add({ collection: 'items' }, { name: formData.get('name') })
-    },
-  }),
-)(AddItem)
+export default firestoreForm('items', { form: 'add-item' })(AddItem)
