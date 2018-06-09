@@ -3,7 +3,7 @@ import { isEmpty, isLoaded } from 'react-redux-firebase'
 import firestoreList from '../hocs/firestoreList'
 import MiniDeleteButton from './MiniDeleteButton'
 
-const Items = ({ docs, deleteItem }) => {
+const Items = ({ docs, deleteDoc }) => {
   const itemsList = !isLoaded(docs)
     ? 'Loading'
     : isEmpty(docs)
@@ -13,7 +13,7 @@ const Items = ({ docs, deleteItem }) => {
             docs[id] && (
               <li key={id}>
                 {docs[id].name}
-                <MiniDeleteButton onClick={() => deleteItem(id)} />
+                <MiniDeleteButton onClick={() => deleteDoc(id)} />
               </li>
             ),
         )

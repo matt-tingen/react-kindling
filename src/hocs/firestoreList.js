@@ -15,7 +15,7 @@ const firestoreList = query => {
       docs: state.firestore.ordered[collection],
     })),
     withHandlers({
-      deleteItem: ({ firestore }) => doc =>
+      deleteDoc: ({ firestore }) => doc =>
         firestore.delete({ collection, doc }),
     }),
   )
