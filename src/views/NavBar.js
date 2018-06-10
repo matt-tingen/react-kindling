@@ -1,11 +1,19 @@
 import React from 'react'
+import styled from 'react-emotion'
 import { Link } from 'react-router-dom'
 
+const Nav = styled.nav`
+  margin-bottom: 1em;
+`
+
+const NavLink = styled(Link)`
+  margin-left: 1em;
+`
 const NavBar = () => (
-  <nav>
-    <Link to="/">Home</Link>
-    <Link to="/add">Add</Link>
-  </nav>
+  <Nav>
+    <NavLink to="/">Home</NavLink>
+    <NavLink to="/add">Add</NavLink>
+  </Nav>
 )
 
 export default NavBar
