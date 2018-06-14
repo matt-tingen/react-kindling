@@ -1,15 +1,17 @@
 import React from 'react'
+import { compose } from 'recompose'
 import firestoreList from '../hocs/firestoreList'
+import withAuth from '../hocs/withAuth'
 import Loading from './Loading'
 import MiniDeleteButton from './MiniDeleteButton'
 
-const ItemsList = ({ docs, deleteDoc }) => (
+const ItemsList = ({ items, deleteDoc }) => (
   <ul>
-    {Object.keys(docs).map(
+    {Object.keys(items).map(
       id =>
-        docs[id] && (
+        items[id] && (
           <li key={id}>
-            {docs[id].name}
+            {items[id].name}
             <MiniDeleteButton onClick={() => deleteDoc(id)} />
           </li>
         ),
@@ -17,10 +19,16 @@ const ItemsList = ({ docs, deleteDoc }) => (
   </ul>
 )
 
-export default firestoreList(
-  {
-    collection: 'items',
-    orderBy: [['name', 'asc']],
-  },
-  { loading: Loading, empty: () => 'Item list is empty' },
+export default compose(
+  withAuth,
+  firestoreList(
+    'items',
+    ({ auth }) => ({
+      collection: 'items',
+      where: ['userId', '==', auth.uid || null],
+      orderBy: ['name'],
+    }),
+
+    { loading: Loading, empty: () => 'Item list is empty' },
+  ),
 )(ItemsList)

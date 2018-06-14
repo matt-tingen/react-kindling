@@ -3,25 +3,28 @@ import { firestoreConnect, isEmpty, isLoaded } from 'react-redux-firebase'
 import { branch, renderComponent, withHandlers } from 'recompose'
 import { compose } from 'redux'
 
-const collectionName = query =>
-  typeof query === 'string' ? query : query.collection
+const asArray = fn => (...args) => [fn(...args)]
+const asCallable = value => (typeof value === 'function' ? value : () => value)
 
-const firestoreList = (query, options) => {
-  const collection = collectionName(query)
+const firestoreList = (collection, fnOrQuery, options) => {
+  const queryArg = asArray(asCallable(fnOrQuery))
 
   return compose(
-    firestoreConnect([query]),
+    firestoreConnect(queryArg),
     connect(state => ({
-      docs: state.firestore.ordered[collection],
+      [collection]: state.firestore.ordered[collection],
     })),
     withHandlers({
       deleteDoc: ({ firestore }) => doc =>
         firestore.delete({ collection, doc }),
     }),
     branch(
-      ({ docs }) => !isLoaded(docs),
+      props => !isLoaded(props[collection]),
       renderComponent(options.loading),
-      branch(({ docs }) => isEmpty(docs), renderComponent(options.empty)),
+      branch(
+        props => isEmpty(props[collection]),
+        renderComponent(options.empty),
+      ),
     ),
   )
 }

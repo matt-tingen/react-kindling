@@ -12,7 +12,7 @@ const firestoreForm = (
     reduxForm({
       ...reduxFormOptions,
       onSubmit: (values, dispatch, props) => {
-        props.firestore.add({ collection }, transform(values))
+        props.firestore.add({ collection }, transform(values, props))
       },
     }),
   )
