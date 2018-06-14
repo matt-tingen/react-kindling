@@ -13,6 +13,7 @@ const NavBar = () => (
   <Nav>
     <NavLink to="/">Home</NavLink>
     <NavLink to="/add">Add</NavLink>
+    <NavLink to="/auth">Auth</NavLink>
   </Nav>
 )
 
