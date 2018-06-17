@@ -1,23 +1,16 @@
 import React, { Fragment } from 'react'
 import GoogleButton from 'react-google-button'
 import { connect } from 'react-redux'
-import { isEmpty, isLoaded, withFirebase } from 'react-redux-firebase'
-import { compose, withHandlers } from 'recompose'
 import Loading from './Loading'
 
-const Auth = ({ login, logout, auth }) => (
+const Auth = ({ login, logout, user, loading }) => (
   <div>
     <h2>Auth</h2>
     <div>
       Status:&nbsp;
-      {!isLoaded(auth) ? (
+      {loading ? (
         <Loading />
-      ) : isEmpty(auth) ? (
-        <Fragment>
-          <span>Not Authed</span>
-          <GoogleButton onClick={login} />
-        </Fragment>
-      ) : (
+      ) : user ? (
         <Fragment>
           <span>Logged In</span>
           <div>
@@ -26,22 +19,22 @@ const Auth = ({ login, logout, auth }) => (
             </button>
           </div>
           <div>Data:</div>
-          <pre>{JSON.stringify(auth, null, 2)}</pre>
+          <pre>{JSON.stringify(user, null, 2)}</pre>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <span>Not Authed</span>
+          <GoogleButton onClick={login} />
         </Fragment>
       )}
     </div>
   </div>
 )
 
-export default compose(
-  withFirebase,
-  connect(({ firebase: { auth } }) => ({ auth })),
-  withHandlers({
-    login: ({ firebase }) => () =>
-      firebase.login({
-        provider: 'google',
-        type: 'popup',
-      }),
-    logout: ({ firebase }) => () => firebase.logout(),
-  }),
+const mapState = ({ user: { user, loading } }) => ({ user, loading })
+const mapDispatch = ({ user: { login, logout } }) => ({ login, logout })
+
+export default connect(
+  mapState,
+  mapDispatch,
 )(Auth)

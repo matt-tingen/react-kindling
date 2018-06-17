@@ -1,37 +1,17 @@
-import { connectRouter, routerMiddleware } from 'connected-react-router'
-import { createBrowserHistory } from 'history'
-import { firebaseReducer, reactReduxFirebase } from 'react-redux-firebase'
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import { firestoreReducer, reduxFirestore } from 'redux-firestore'
+import { init } from '@rematch/core'
 import { reducer as formReducer } from 'redux-form'
-import firebase from '../firebase'
+import initializeFirebase from './initializeFirebase'
+import * as models from './models'
 
-export const history = createBrowserHistory()
+const store = init({
+  models,
+  redux: {
+    reducers: {
+      form: formReducer,
+    },
+  },
+})
 
-const reactReduxConfig = {
-  userProfile: 'users',
-  useFirestoreForProfile: true,
-}
-
-const enhancedCreateStore = composeWithDevTools(
-  reactReduxFirebase(firebase, reactReduxConfig),
-  reduxFirestore(firebase),
-)(createStore)
-
-const enhanceReducers = compose(connectRouter(history))
-const rootReducer = enhanceReducers(
-  combineReducers({
-    firebase: firebaseReducer,
-    firestore: firestoreReducer,
-    form: formReducer,
-  }),
-)
-
-const initialState = {}
-
-const middleware = compose(applyMiddleware(routerMiddleware(history)))
-
-const store = enhancedCreateStore(rootReducer, initialState, middleware)
+initializeFirebase()
 
 export default store

@@ -1,7 +1,7 @@
 import React from 'react'
 import { compose } from 'recompose'
 import firestoreForm from '../hocs/firestoreForm'
-import withAuth from '../hocs/withAuth'
+import withUser from '../hocs/withUser'
 import FormField from './FormField'
 
 const AddItem = ({ handleSubmit }) => (
@@ -12,8 +12,8 @@ const AddItem = ({ handleSubmit }) => (
 )
 
 export default compose(
-  withAuth,
-  firestoreForm('items', { form: 'add-item' }, (values, { auth: { uid } }) => ({
+  withUser,
+  firestoreForm('items', { form: 'add-item' }, (values, { user: { uid } }) => ({
     ...values,
     userId: uid,
   })),

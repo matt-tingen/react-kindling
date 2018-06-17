@@ -16,7 +16,8 @@ Because this project optimizes for DX as much as possible, some concerns are for
 
 ## Features
 
-- Firebase integration with `react-redux-firebase`
+- Auth with Firebase
+- CRUD with Firestore
 - Routing with `react-router`
 - Styling with `emotion`
 

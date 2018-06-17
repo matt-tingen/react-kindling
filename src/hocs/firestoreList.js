@@ -1,28 +1,24 @@
-import { connect } from 'react-redux'
-import { firestoreConnect, isEmpty, isLoaded } from 'react-redux-firebase'
-import { branch, renderComponent, withHandlers } from 'recompose'
-import { compose } from 'redux'
+import { branch, compose, renderComponent, withHandlers } from 'recompose'
+import firebase from '../firebase'
+import firebaseListener from '../hocs/firebaseListener'
 
-const asArray = fn => (...args) => [fn(...args)]
-const asCallable = value => (typeof value === 'function' ? value : () => value)
+const db = firebase.firestore()
 
-const firestoreList = (collection, fnOrQuery, options) => {
-  const queryArg = asArray(asCallable(fnOrQuery))
-
+const firestoreList = (collection, query, options) => {
   return compose(
-    firestoreConnect(queryArg),
-    connect(state => ({
-      [collection]: state.firestore.ordered[collection],
-    })),
+    firebaseListener(collection, query),
     withHandlers({
-      deleteDoc: ({ firestore }) => doc =>
-        firestore.delete({ collection, doc }),
+      deleteDoc: () => doc =>
+        db
+          .collection(collection)
+          .doc(doc)
+          .delete(),
     }),
     branch(
-      props => !isLoaded(props[collection]),
+      props => !props[collection],
       renderComponent(options.loading),
       branch(
-        props => isEmpty(props[collection]),
+        props => !props[collection].length,
         renderComponent(options.empty),
       ),
     ),
