@@ -5,7 +5,7 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { firestoreReducer, reduxFirestore } from 'redux-firestore'
 import { reducer as formReducer } from 'redux-form'
-import firebase from './firebase'
+import firebase from '../firebase'
 
 export const history = createBrowserHistory()
 

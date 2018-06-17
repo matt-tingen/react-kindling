@@ -1,6 +1,6 @@
-import { withFirestore } from 'react-redux-firebase'
 import { compose } from 'recompose'
 import { reduxForm } from 'redux-form'
+import firebase from '../firebase'
 
 const firestoreForm = (
   collection,
@@ -8,11 +8,11 @@ const firestoreForm = (
   transform = values => values,
 ) =>
   compose(
-    withFirestore,
     reduxForm({
       ...reduxFormOptions,
       onSubmit: (values, dispatch, props) => {
-        props.firestore.add({ collection }, transform(values, props))
+        const db = firebase.firestore()
+        db.collection(collection).add(transform(values, props))
       },
     }),
   )
