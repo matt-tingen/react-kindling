@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div className={classes.container}>
-        <Header>Welcome to React</Header>
+        <Header>React Kindling</Header>
         <NavBar />
         <Router />
       </div>
