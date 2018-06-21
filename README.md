@@ -1,18 +1,6 @@
 # React Kindling
 
-This is an elaboration on `create-react-app` that makes bootstrapping my side projects much simpler.
-
-## Goals
-
-- Abstract basic CRUD functionality
-  - Helpers for common use cases
-
-## Non-Goals
-
-Because this project optimizes for DX as much as possible, some concerns are foregone to be addressed if any projects built from this mature.
-
-- Bundle size
-- Design
+This is an elaboration on `create-react-app` with the goal of making bootstrapping my side projects much simpler.
 
 ## Features
 
@@ -20,6 +8,13 @@ Because this project optimizes for DX as much as possible, some concerns are for
 - CRUD with Firestore
 - Routing with `react-router`
 - Styling with `emotion`
+
+## Non-Goals
+
+Because this project optimizes for DX as much as possible, some concerns are foregone to be addressed if any projects built from this mature.
+
+- Bundle size
+- Design
 
 ## Setup
 
