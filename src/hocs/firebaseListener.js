@@ -52,7 +52,7 @@ const firebaseListener = (
     }
   }
 
-  Component.displayName = `mergeStateintoProps(${getDisplayName(
+  Component.displayName = `firebaseListener(${getDisplayName(
     WrappedComponent,
   )})`
 
