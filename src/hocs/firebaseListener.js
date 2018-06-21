@@ -1,11 +1,10 @@
 import _ from 'lodash'
 import React from 'react'
-import { compose } from 'recompose'
 import asFunction from '../utils/asFunction'
 import buildQuery from '../utils/buildQuery'
 import getDisplayName from './helpers/getDisplayName'
 
-const addListener = (
+const firebaseListener = (
   collection,
   query,
   propName = collection,
@@ -59,8 +58,5 @@ const addListener = (
 
   return Component
 }
-
-// TODO: add query as prop, then remove. This will allow react to update when the query changes
-const firebaseListener = compose(addListener)
 
 export default firebaseListener

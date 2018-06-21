@@ -23,11 +23,6 @@ export default compose(
   withUser,
   firestoreList(
     'items',
-    // (collection, { user }) =>
-    //   collection
-    //   .where('userId', '==', user ? user.uid : null)
-    //   .orderBy('name'),
-
     ({ user }) => ({
       where: ['userId', '==', user ? user.uid : null],
       orderBy: ['name'],
