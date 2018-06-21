@@ -16,9 +16,9 @@ export default compose(
   firestoreForm({
     collection: 'items',
     reduxForm: { form: 'add-item' },
-    transform: (values, { user: { uid } }) => ({
+    transform: (values, { user }) => ({
       ...values,
-      userId: uid,
+      userId: user ? user.uid : null,
     }),
   }),
 )(AddItem)
