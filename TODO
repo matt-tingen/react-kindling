@@ -1,5 +1,6 @@
 delete from list
 detail page
 update page
+firestore rules
 build-react-kindling
 logo
