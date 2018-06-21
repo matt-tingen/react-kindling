@@ -9,6 +9,8 @@ firebase login
 
 Update the `project` in `.firebaserc`.
 
+Update `src/firebase/config.json`.
+
 ## Firestore
 
 Enable Firestore and set rules e.g.
