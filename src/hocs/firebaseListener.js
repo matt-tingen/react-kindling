@@ -39,7 +39,7 @@ const firebaseListener = (
           snapshot => {
             const docs = []
             snapshot.forEach(doc => {
-              docs.push(doc.data())
+              docs.push([doc.id, doc.data()])
             })
             this.setState({ [collection]: docs })
           },

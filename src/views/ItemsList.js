@@ -7,11 +7,11 @@ import MiniDeleteButton from './MiniDeleteButton'
 
 const ItemsList = ({ items, deleteDoc }) => (
   <ul>
-    {Object.keys(items).map(
-      id =>
-        items[id] && (
+    {items.map(
+      ([id, item]) =>
+        item && (
           <li key={id}>
-            {items[id].name}
+            {item.name}
             <MiniDeleteButton onClick={() => deleteDoc(id)} />
           </li>
         ),
