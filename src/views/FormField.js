@@ -12,11 +12,13 @@ class FormField extends Component {
   componentWillMount() {
     this.id = id()
   }
+
   render({ label, ...fieldOptions }) {
+    const { id } = this
     return (
       <div>
-        <Label htmlFor={this.id}>{label || titleCase(fieldOptions.name)}</Label>
-        <Field {...fieldOptions} />
+        <Label htmlFor={id}>{label || titleCase(fieldOptions.name)}</Label>
+        <Field id={id} {...fieldOptions} />
       </div>
     )
   }
