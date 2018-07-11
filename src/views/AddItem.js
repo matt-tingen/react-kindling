@@ -13,8 +13,12 @@ const AddItem = ({ handleSubmit }) => (
 
 export default compose(
   withUser,
-  firestoreForm('items', { form: 'add-item' }, (values, { user: { uid } }) => ({
-    ...values,
-    userId: uid,
-  })),
+  firestoreForm({
+    collection: 'items',
+    reduxForm: { form: 'add-item' },
+    transform: (values, { user: { uid } }) => ({
+      ...values,
+      userId: uid,
+    }),
+  }),
 )(AddItem)

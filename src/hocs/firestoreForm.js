@@ -3,9 +3,10 @@ import { reduxForm } from 'redux-form'
 import firebase from '../firebase'
 
 const firestoreForm = (
-  collection,
-  reduxFormOptions,
-  transform = values => values,
+  { collection, reduxForm: reduxFormOptions, transform } = {
+    reduxForm: {},
+    transform: values => values,
+  },
 ) =>
   compose(
     reduxForm({
