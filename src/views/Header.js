@@ -1,5 +1,5 @@
 import { css } from 'emotion'
-import React, { Component } from 'react'
+import React from 'react'
 import logo from './firebase.svg'
 
 const classes = {
@@ -17,15 +17,11 @@ const classes = {
   `,
 }
 
-class Header extends Component {
-  render({ children }) {
-    return (
-      <header className={classes.header}>
-        <img src={logo} className={classes.logo} alt="logo" />
-        <h1 className={classes.title}>{children}</h1>
-      </header>
-    )
-  }
-}
+const Header = ({ children }) => (
+  <header className={classes.header}>
+    <img src={logo} className={classes.logo} alt="logo" />
+    <h1 className={classes.title}>{children}</h1>
+  </header>
+)
 
 export default Header

@@ -25,7 +25,9 @@ class Loading extends Component {
     clearInterval(this.interval)
   }
 
-  render(props, { tick }) {
+  render() {
+    const { tick } = this.state
+
     return (
       <span>
         Loading

@@ -13,7 +13,8 @@ class FormField extends Component {
     this.id = id()
   }
 
-  render({ label, ...fieldOptions }) {
+  render() {
+    const { label, ...fieldOptions } = this.props
     const { id } = this
     return (
       <div>
