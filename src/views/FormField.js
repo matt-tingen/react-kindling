@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'react-emotion'
-import { Field } from 'redux-form'
 import id from '../utils/id'
 import titleCase from '../utils/titleCase'
 
@@ -15,12 +14,12 @@ class FormField extends Component {
   }
 
   render() {
-    const { label, ...fieldOptions } = this.props
+    const { label, ...inputProps } = this.props
     const { id } = this
     return (
       <div>
-        <Label htmlFor={id}>{label || titleCase(fieldOptions.name)}</Label>
-        <Field id={id} {...fieldOptions} />
+        <Label htmlFor={id}>{label || titleCase(inputProps.name)}</Label>
+        <input id={id} {...inputProps} />
       </div>
     )
   }

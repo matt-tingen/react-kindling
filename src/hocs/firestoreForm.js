@@ -1,21 +1,18 @@
-import { compose } from 'recompose'
-import { reduxForm } from 'redux-form'
+import { withFormik } from 'formik'
 import firebase from '../firebase'
 
 const firestoreForm = (
-  { collection, reduxForm: reduxFormOptions, transform } = {
-    reduxForm: {},
+  { collection, transform, formik } = {
     transform: values => values,
+    formik: {},
   },
 ) =>
-  compose(
-    reduxForm({
-      ...reduxFormOptions,
-      onSubmit: (values, dispatch, props) => {
-        const db = firebase.firestore()
-        db.collection(collection).add(transform(values, props))
-      },
-    }),
-  )
+  withFormik({
+    ...formik,
+    handleSubmit: (values, { props }) => {
+      const db = firebase.firestore()
+      db.collection(collection).add(transform(values, props))
+    },
+  })
 
 export default firestoreForm
