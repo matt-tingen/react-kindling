@@ -9,7 +9,8 @@ const Label = styled.label`
 `
 
 class FormField extends Component {
-  componentWillMount() {
+  constructor() {
+    super()
     this.id = id()
   }
 
