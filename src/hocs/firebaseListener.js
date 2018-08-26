@@ -23,7 +23,9 @@ const firebaseListener = (
     }
 
     componentWillUnmount() {
-      this.unsubscribe()
+      if (this.unsubscribe) {
+        this.unsubscribe()
+      }
     }
 
     setListener() {
