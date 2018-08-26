@@ -1,24 +1,44 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import styled from 'react-emotion'
-import { withProps } from 'recompose'
+import withProps from '../hocs/withProps'
 
+interface DotProps {
+  visible: boolean
+  children: string
+}
 const Dot = withProps({
   children: '.',
 })(
-  styled.span(({ visible }) => ({
+  styled('span')<DotProps>(({ visible }) => ({
     visibility: visible ? 'visible' : 'hidden',
   })),
 )
 
-class Loading extends Component {
+interface Props {
+  interval: number
+}
+
+interface State {
+  tick: number
+}
+
+class AnimatedEllipsis extends React.Component<Props, State> {
+  static defaultProps = {
+    interval: 250,
+  }
+
+  private interval: NodeJS.Timer
+
   state = {
     tick: 0,
   }
 
-  componentDidMount() {
+  constructor(props: Props) {
+    super(props)
+
     this.interval = setInterval(() => {
       this.setState(prevState => ({ tick: (prevState.tick + 1) % 4 }))
-    }, 250)
+    }, props.interval)
   }
 
   componentWillUnmount() {
@@ -30,7 +50,6 @@ class Loading extends Component {
 
     return (
       <span>
-        Loading
         <Dot visible={tick > 0} />
         <Dot visible={tick > 1} />
         <Dot visible={tick > 2} />
@@ -39,4 +58,4 @@ class Loading extends Component {
   }
 }
 
-export default Loading
+export default AnimatedEllipsis
