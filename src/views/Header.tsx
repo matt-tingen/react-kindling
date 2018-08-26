@@ -1,5 +1,5 @@
 import { css } from 'emotion'
-import React from 'react'
+import * as React from 'react'
 import logo from './firebase.svg'
 
 const classes = {
@@ -17,7 +17,7 @@ const classes = {
   `,
 }
 
-const Header = ({ children }) => (
+const Header: React.SFC = ({ children }) => (
   <header className={classes.header}>
     <img src={logo} className={classes.logo} alt="logo" />
     <h1 className={classes.title}>{children}</h1>
