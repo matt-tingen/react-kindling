@@ -6,5 +6,6 @@
   "eslint.options": {
     "configFile": "node_modules/eslint-config-react-app/index.js"
   },
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
