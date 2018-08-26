@@ -1,7 +1,7 @@
-import React from 'react'
+import * as React from 'react'
 import ItemsList from './ItemsList'
 
-const Items = () => (
+const Items: React.SFC = () => (
   <div>
     <h1>Items</h1>
     <ItemsList />
