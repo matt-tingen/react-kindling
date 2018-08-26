@@ -1,10 +1,10 @@
 import { css } from 'emotion'
-import React from 'react'
+import * as React from 'react'
 import styled from 'react-emotion'
 import { NavLink as NavLink_ } from 'react-router-dom'
-import { withProps } from 'recompose'
+import withProps from '../hocs/withProps'
 
-const Nav = styled.nav`
+const Nav = styled('nav')`
   margin-bottom: 1em;
 `
 
@@ -12,11 +12,11 @@ const activeClass = css`
   font-weight: bold;
 `
 
-const NavLink = withProps({ activeClassName: activeClass })(styled(NavLink_)`
-  margin-left: 1em;
-`)
+const NavLink = withProps({
+  activeClassName: activeClass,
+})(NavLink_)
 
-const NavBar = () => (
+const NavBar: React.SFC = () => (
   <Nav>
     <NavLink to="/" exact>
       Home
