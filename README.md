@@ -4,14 +4,16 @@ This is an elaboration on `create-react-app` with the goal of making bootstrappi
 
 ## Features
 
+- Typescript
 - Auth with Firebase
 - CRUD with Firestore
 - Routing with `react-router`
 - Styling with `emotion`
+- State management with `unstated`
 
 ## Non-Goals
 
-Because this project optimizes for DX as much as possible, some concerns are foregone to be addressed if any projects built from this mature.
+Because this project optimizes for DX as much as possible, some concerns are foregone to be addressed in projects built from this boilerplate.
 
 - Bundle size
 - Design
