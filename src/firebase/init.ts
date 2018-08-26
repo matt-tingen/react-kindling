@@ -1,8 +1,8 @@
-import firebase from 'firebase/app'
+import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 
-const init = (projectId, config) => {
+const init = (projectId: string, config: object) => {
   const app = firebase.initializeApp({
     projectId,
     authDomain: `${projectId}.firebaseapp.com`,
