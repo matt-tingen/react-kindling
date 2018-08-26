@@ -1,24 +1,30 @@
 import { Container } from 'unstated'
 import firebase, { providers } from '../firebase'
 
+interface State {
+  loading: boolean
+  error: Error | null
+  user: firebase.User | null
+}
+
 const auth = firebase.auth()
 
-class UserContainer extends Container {
-  state = {
-    loading: false,
-    error: null,
-    user: null,
-  }
-
+class UserContainer extends Container<State> {
   constructor() {
     super()
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
 
+    this.state = {
+      loading: false,
+      error: null,
+      user: null,
+    }
+
     this.addListeners()
   }
 
-  addListeners() {
+  private addListeners() {
     auth.onAuthStateChanged(user => {
       if (user) {
         this.setUser(user)
@@ -28,19 +34,19 @@ class UserContainer extends Container {
     })
   }
 
-  startLoading() {
+  private startLoading() {
     return this.setState({ loading: true, error: null, user: null })
   }
 
-  setError(error) {
+  private setError(error: Error) {
     return this.setState({ loading: false, error, user: null })
   }
 
-  setUser(user) {
+  private setUser(user: firebase.User) {
     return this.setState({ loading: false, error: null, user })
   }
 
-  clear() {
+  private clear() {
     return this.setState({ loading: false, error: null, user: null })
   }
 
