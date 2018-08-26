@@ -2,4 +2,5 @@ detail page
 update page
 firestore rules
 build-react-kindling
+authOnly
 logo
