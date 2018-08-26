@@ -1,15 +1,22 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import styled from 'react-emotion'
+import HTMLProps from '../types/HtmlProps'
 import id from '../utils/id'
 import titleCase from '../utils/titleCase'
 
-const Label = styled.label`
+const Label = styled('label')`
   margin-right: 0.5em;
 `
+interface Props extends HTMLProps<HTMLInputElement> {
+  label?: string
+}
 
-class FormField extends Component {
-  constructor() {
-    super()
+class FormField extends React.Component<Props> {
+  private id: string
+
+  constructor(props: Props) {
+    super(props)
+
     this.id = id()
   }
 
