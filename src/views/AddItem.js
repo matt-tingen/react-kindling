@@ -20,8 +20,7 @@ const AddItem = ({ handleChange, handleSubmit, values, isSubmitting }) => (
 
 export default compose(
   withUser,
-  firestoreForm({
-    collection: 'items',
+  firestoreForm('items', {
     transform: (values, { user }) => ({
       ...values,
       userId: user ? user.uid : null,
