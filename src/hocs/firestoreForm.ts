@@ -1,23 +1,32 @@
-import { withFormik } from 'formik'
+import { FormikValues, withFormik, WithFormikConfig } from 'formik'
 import firebase from '../firebase'
+import asFunction from '../utils/asFunction'
 
-interface FirestoreFormOptions {
-  transform: (values: object, props: object) => object
-  formik: object
+interface FirestoreFormOptions<Props, Values extends FormikValues, Payload> {
+  initialValues: Values | ((props: Props) => Values)
+  transform?: (values: Values, props: Props) => Payload
+  formik?: WithFormikConfig<Props, Values, Payload>
 }
 
-const firestoreForm = (
+// This function does not infer its generics. It should be called with
+// explicit generics.
+const firestoreForm = <Props, Values extends FormikValues, Payload = Values>(
   collection: string,
-  { transform, formik }: FirestoreFormOptions = {
-    transform: values => values,
-    formik: {},
-  },
+  {
+    transform,
+    initialValues,
+    formik,
+  }: FirestoreFormOptions<Props, Values, Payload>,
 ) =>
   withFormik({
     ...formik,
-    handleSubmit: (values, { props }) => {
+    mapPropsToValues: asFunction(initialValues),
+    handleSubmit: (valuesArg, { props }) => {
+      const values =
+        typeof valuesArg === 'function' ? valuesArg(props) : valuesArg
+      const payload = transform ? transform(values, props) : values
       const db = firebase.firestore()
-      db.collection(collection).add(transform(values, props))
+      db.collection(collection).add(payload)
     },
   })
 
