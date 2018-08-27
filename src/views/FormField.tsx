@@ -1,32 +1,46 @@
+import { InjectedFormikProps } from 'formik'
 import * as React from 'react'
 import styled from 'react-emotion'
-import HTMLProps from '../types/HtmlProps'
+import Omit from '../types/Omit'
 import id from '../utils/id'
 import titleCase from '../utils/titleCase'
 
 const Label = styled('label')`
   margin-right: 0.5em;
 `
-interface Props extends HTMLProps<HTMLInputElement> {
-  label?: string
-}
 
-class FormField extends React.Component<Props> {
+interface OwnProps<Values> {
+  label?: string
+  type: string
+  name: keyof Values & string
+}
+type UnneededProps = 'handleSubmit' | 'isSubmitting'
+type Props<Values> = Omit<
+  InjectedFormikProps<OwnProps<Values>, Values>,
+  UnneededProps
+>
+
+class FormField<Values> extends React.Component<Props<Values>> {
   private id: string
 
-  constructor(props: Props) {
+  constructor(props: Props<Values>) {
     super(props)
 
     this.id = id()
   }
 
   render() {
-    const { label, ...inputProps } = this.props
+    const { handleChange, handleBlur, name, type, label } = this.props
     const { id } = this
     return (
       <div>
-        <Label htmlFor={id}>{label || titleCase(inputProps.name)}</Label>
-        <input id={id} {...inputProps} />
+        <Label htmlFor={id}>{label || titleCase(name)}</Label>
+        <input
+          id={id}
+          type={type}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
       </div>
     )
   }

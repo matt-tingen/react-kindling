@@ -11,19 +11,9 @@ interface Values {
 
 type Props = InjectedFormikProps<{}, Values>
 
-const AddItem = ({
-  handleChange,
-  handleSubmit,
-  values,
-  isSubmitting,
-}: Props) => (
+const AddItem = ({ handleSubmit, isSubmitting, ...inputProps }: Props) => (
   <form onSubmit={handleSubmit}>
-    <FormField
-      name="name"
-      type="text"
-      onChange={handleChange}
-      value={values.name}
-    />
+    <FormField name="name" type="text" {...inputProps} />
     <button type="submit" disabled={isSubmitting}>
       Add
     </button>
