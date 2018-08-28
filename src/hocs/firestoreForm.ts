@@ -8,8 +8,6 @@ interface FirestoreFormOptions<Props, Values extends FormikValues, Payload> {
   formik?: WithFormikConfig<Props, Values, Payload>
 }
 
-// This function does not infer its generics. It should be called with
-// explicit generics.
 const firestoreForm = <Props, Values extends FormikValues, Payload = Values>(
   collection: string,
   {

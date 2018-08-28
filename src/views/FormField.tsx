@@ -37,6 +37,7 @@ class FormField<Values> extends React.Component<Props<Values>> {
         <Label htmlFor={id}>{label || titleCase(name)}</Label>
         <input
           id={id}
+          name={name}
           type={type}
           onChange={handleChange}
           onBlur={handleBlur}
