@@ -4,13 +4,10 @@ import { compose } from 'recompose'
 import * as yup from 'yup'
 import firestoreForm from '../hocs/firestoreForm'
 import withUser from '../hocs/withUser'
+import Item from '../types/Item'
 import FormField from './FormField'
 
-interface Values {
-  name: string
-}
-
-type Props = InjectedFormikProps<{}, Values>
+type Props = InjectedFormikProps<{}, Item>
 
 const AddItem = ({ handleSubmit, isSubmitting, ...inputProps }: Props) => (
   <form onSubmit={handleSubmit}>
