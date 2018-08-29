@@ -1,11 +1,19 @@
-import React from 'react'
+import * as React from 'react'
 import { compose } from 'recompose'
 import firestoreList from '../hocs/firestoreList'
 import withUser from '../hocs/withUser'
+import Item from '../types/Item'
 import Loading from './Loading'
 import MiniDeleteButton from './MiniDeleteButton'
 
-const ItemsList = ({ items, deleteDoc }) => (
+const Empty: React.SFC = () => <div>Item list is empty</div>
+
+interface Props {
+  deleteDoc: (doc: string) => Promise<void>
+  items: [string, Item][]
+}
+
+const ItemsList: React.SFC<Props> = ({ items, deleteDoc }) => (
   <ul>
     {items.map(
       ([id, item]) =>
@@ -27,6 +35,6 @@ export default compose(
       where: ['userId', '==', user ? user.uid : null],
       orderBy: ['name'],
     }),
-    { loading: Loading, empty: () => 'Item list is empty' },
+    { loading: Loading, empty: Empty },
   ),
 )(ItemsList)

@@ -1,7 +1,8 @@
 import styled from 'react-emotion'
 import { withProps } from 'recompose'
+import HTMLProps from '../types/HTMLProps'
 
-interface Props {
+interface Props extends HTMLProps<HTMLButtonElement> {
   type: string
   children: string
 }
