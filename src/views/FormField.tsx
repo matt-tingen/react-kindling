@@ -30,8 +30,9 @@ class FormField<Values> extends React.Component<Props<Values>> {
   }
 
   render() {
-    const { handleChange, handleBlur, name, type, label } = this.props
+    const { handleChange, handleBlur, name, type, label, values } = this.props
     const { id } = this
+    const value = values[name].toString()
     return (
       <div>
         <Label htmlFor={id}>{label || titleCase(name)}</Label>
@@ -41,6 +42,7 @@ class FormField<Values> extends React.Component<Props<Values>> {
           type={type}
           onChange={handleChange}
           onBlur={handleBlur}
+          value={value}
         />
       </div>
     )

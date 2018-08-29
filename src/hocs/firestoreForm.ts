@@ -19,12 +19,13 @@ const firestoreForm = <Props, Values extends FormikValues, Payload = Values>(
   withFormik({
     ...formik,
     mapPropsToValues: asFunction(initialValues),
-    handleSubmit: (valuesArg, { props }) => {
+    handleSubmit: (valuesArg, { props, resetForm }) => {
       const values =
         typeof valuesArg === 'function' ? valuesArg(props) : valuesArg
       const payload = transform ? transform(values, props) : values
       const db = firebase.firestore()
       db.collection(collection).add(payload)
+      resetForm()
     },
   })
 
