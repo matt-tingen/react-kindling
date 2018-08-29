@@ -1,11 +1,15 @@
 import { FormikValues, withFormik, WithFormikConfig } from 'formik'
 import firebase from '../firebase'
+import Omit from '../types/Omit'
 import asFunction from '../utils/asFunction'
 
 interface FirestoreFormOptions<Props, Values extends FormikValues, Payload> {
   initialValues: Values | ((props: Props) => Values)
   transform?: (values: Values, props: Props) => Payload
-  formik?: WithFormikConfig<Props, Values, Payload>
+  formik?: Omit<
+    WithFormikConfig<Props, Values, Payload>,
+    'handleSubmit' | 'mapPropsToValues'
+  >
 }
 
 const firestoreForm = <Props, Values extends FormikValues, Payload = Values>(
