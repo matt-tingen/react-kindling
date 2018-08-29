@@ -1,17 +1,22 @@
-import _ from 'lodash'
-import React from 'react'
-import asFunction from '../utils/asFunction'
-import buildQuery from '../utils/buildQuery'
+import * as _ from 'lodash'
+import * as React from 'react'
+import asFunction, { MaybeFunction } from '../utils/asFunction'
+import buildQuery, { QueryRequest } from '../utils/buildQuery'
 import getDisplayName from './helpers/getDisplayName'
 
-const firebaseListener = (
-  collection,
-  query,
+type DocumentPair = [string, firebase.firestore.DocumentData]
+
+const firebaseListener = <Props extends {}>(
+  collection: string,
+  query: MaybeFunction<QueryRequest, [Props]>,
   propName = collection,
-) => WrappedComponent => {
+) => (WrappedComponent: React.ComponentType<Props>) => {
   const queryFunction = asFunction(query)
 
-  class Component extends React.Component {
+  class Component extends React.Component<Props> {
+    private unsubscribe?: () => void
+    private previousQuery?: any
+
     state = { [propName]: [] }
 
     componentDidMount() {
@@ -39,7 +44,8 @@ const firebaseListener = (
 
         this.unsubscribe = buildQuery(collection, queryObject).onSnapshot(
           snapshot => {
-            const docs = []
+            const docs: DocumentPair[] = []
+            // snapshot does not support `.map()`
             snapshot.forEach(doc => {
               docs.push([doc.id, doc.data()])
             })
@@ -54,7 +60,7 @@ const firebaseListener = (
     }
   }
 
-  Component.displayName = `firebaseListener(${getDisplayName(
+  ;(Component as React.ComponentClass).displayName = `firebaseListener(${getDisplayName(
     WrappedComponent,
   )})`
 

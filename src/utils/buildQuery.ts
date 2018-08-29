@@ -6,7 +6,7 @@ const db = firebase.firestore()
 type WhereArgs = GetArgs<FirestoreQuery['where']>
 type OrderByArgs = GetArgs<FirestoreQuery['orderBy']>
 
-interface QueryRequest {
+export interface QueryRequest {
   where?: WhereArgs
   orderBy?: OrderByArgs
 }
