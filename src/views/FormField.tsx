@@ -8,6 +8,10 @@ import titleCase from '../utils/titleCase'
 const Label = styled('label')`
   margin-right: 0.5em;
 `
+const FieldError = styled('div')`
+  color: red;
+  font-weight: bold;
+`
 
 interface OwnProps<Values> {
   label?: string
@@ -30,9 +34,18 @@ class FormField<Values> extends React.Component<Props<Values>> {
   }
 
   render() {
-    const { handleChange, handleBlur, name, type, label, values } = this.props
+    const {
+      handleChange,
+      handleBlur,
+      name,
+      type,
+      label,
+      values,
+      errors,
+    } = this.props
     const { id } = this
     const value = values[name].toString()
+    const error = errors[name] as string
     return (
       <div>
         <Label htmlFor={id}>{label || titleCase(name)}</Label>
@@ -44,6 +57,7 @@ class FormField<Values> extends React.Component<Props<Values>> {
           onBlur={handleBlur}
           value={value}
         />
+        {error && <FieldError>{error}</FieldError>}
       </div>
     )
   }

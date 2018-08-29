@@ -1,6 +1,7 @@
 import { InjectedFormikProps } from 'formik'
 import * as React from 'react'
 import { compose } from 'recompose'
+import * as yup from 'yup'
 import firestoreForm from '../hocs/firestoreForm'
 import withUser from '../hocs/withUser'
 import FormField from './FormField'
@@ -28,5 +29,8 @@ export default compose(
       ...values,
       userId: user ? user.uid : null,
     }),
+    schema: {
+      name: yup.string().required(),
+    },
   }),
 )(AddItem)
