@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { Schema } from 'yup'
 import firebase from '../firebase'
 import Omit from '../types/Omit'
-import asFunction from '../utils/asFunction'
+import asFunction, { MaybeFunction } from '../utils/asFunction'
 
 type AllowedFormikOptions<Props, Values extends FormikValues, Payload> = Omit<
   WithFormikConfig<Props, Values, Payload>,
@@ -19,7 +19,7 @@ type SchemaShape<T> = { [field in keyof T]: Schema<T[field]> }
 interface FirestoreFormOptions<Props, Values extends FormikValues, Payload> {
   initialValues: Values | ((props: Props) => Values)
   transform?: (values: Values, props: Props) => Payload
-  schema?: SchemaShape<Values> | ((props: Props) => SchemaShape<Values>)
+  schema?: MaybeFunction<SchemaShape<Values>, [Props]>
   formik?: EnhancedFormikOptions<Props, Values, Payload>
 }
 
