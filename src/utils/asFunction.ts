@@ -1,6 +1,6 @@
-function asFunction<F extends Function>(value: F): F
-function asFunction<T>(value: T): () => T
-function asFunction(value: any) {
+const asFunction = <Args extends any[], R>(
+  value: ((...args: Args) => R) | R,
+): ((...args: Args) => R) => {
   return typeof value === 'function' ? value : () => value
 }
 
