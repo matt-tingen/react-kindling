@@ -1,8 +1,8 @@
+import { InjectedFormikProps } from 'formik'
 import * as React from 'react'
 import styled from 'react-emotion'
-import { InputBundle } from '../hocs/firestoreForm'
-import id from '../utils/id'
-import titleCase from '../utils/titleCase'
+import id from '../../utils/id'
+import titleCase from '../../utils/titleCase'
 
 const Label = styled('label')`
   margin-right: 0.5em;
@@ -12,11 +12,11 @@ const FieldError = styled('div')`
   font-weight: bold;
 `
 
-interface Props<Values> {
+export interface Props<Values> {
   label?: string
   type: string
   name: keyof Values & string
-  inputBundle: InputBundle<Values>
+  formikBag: InjectedFormikProps<{}, Values>
 }
 
 class FormField<Values> extends React.Component<Props<Values>> {
@@ -33,7 +33,7 @@ class FormField<Values> extends React.Component<Props<Values>> {
       name,
       type,
       label,
-      inputBundle: { handleChange, handleBlur, values, errors },
+      formikBag: { handleChange, handleBlur, values, errors },
     } = this.props
     const { id } = this
     const value = values[name].toString()

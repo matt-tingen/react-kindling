@@ -5,13 +5,14 @@ import {
   withFormik,
   WithFormikConfig,
 } from 'formik'
-import * as _ from 'lodash'
 import { compose, mapProps } from 'recompose'
 import * as yup from 'yup'
 import { Schema } from 'yup'
-import firebase from '../firebase'
-import Omit from '../types/Omit'
-import asFunction, { MaybeFunction } from '../utils/asFunction'
+import firebase from '../../firebase'
+import Omit from '../../types/Omit'
+import asFunction, { MaybeFunction } from '../../utils/asFunction'
+import withProps from '../withProps'
+import FormField, { Props as FormFieldProps } from './FormField'
 
 type AllowedFormikOptions<Props, Values extends FormikValues, Payload> = Omit<
   WithFormikConfig<Props, Values, Payload>,
@@ -33,15 +34,11 @@ interface FirestoreFormOptions<Props, Values extends FormikValues, Payload> {
   formik?: EnhancedFormikOptions<Props, Values, Payload>
 }
 
-type FormikProps<Values> = InjectedFormikProps<{}, Values>
-type FormPropKeys = 'handleSubmit' | 'isSubmitting'
-const formPropKeys: FormPropKeys[] = ['handleSubmit', 'isSubmitting']
+type InnerFieldProps<Values> = Omit<FormFieldProps<Values>, 'formikBag'>
 
-export type InputBundle<Values> = Omit<FormikProps<Values>, FormPropKeys>
-export type FormBundle = Pick<FormikProps<{}>, FormPropKeys>
-export type FirestoreFormProps<Values> = {
-  inputBundle: InputBundle<Values>
-  formBundle: FormBundle
+export type FirestoreFormProps<Values, Props = {}> = {
+  Field: React.ComponentType<InnerFieldProps<Values>>
+  formikBag: InjectedFormikProps<Props, Values>
 }
 
 const firestoreForm = <
@@ -75,8 +72,8 @@ const firestoreForm = <
       },
     }),
     mapProps((props: InjectedFormikProps<Props, Values>) => ({
-      inputBundle: _.omit(props, formPropKeys),
-      formBundle: _.pick(props, formPropKeys),
+      formikBag: props,
+      Field: withProps({ formikBag: props })(FormField),
     })),
   )
 export default firestoreForm
