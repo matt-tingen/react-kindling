@@ -1,13 +1,12 @@
-import { InjectedFormikProps } from 'formik'
 import * as React from 'react'
 import { compose } from 'recompose'
 import * as yup from 'yup'
-import firestoreForm from '../hocs/firestoreForm'
+import firestoreForm, { FirestoreFormProps } from '../hocs/firestoreForm'
 import withUser, { UserProps } from '../hocs/withUser'
 import { ProtoItem } from '../types/Item'
 import FormField from './FormField'
 
-type Props = InjectedFormikProps<{}, ProtoItem>
+type Props = FirestoreFormProps<ProtoItem>
 
 const AddItem = ({ handleSubmit, isSubmitting, ...inputProps }: Props) => (
   <form onSubmit={handleSubmit}>

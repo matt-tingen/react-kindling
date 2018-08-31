@@ -1,4 +1,10 @@
-import { FormikValues, withFormik, WithFormikConfig } from 'formik'
+import {
+  ComponentDecorator,
+  FormikValues,
+  InjectedFormikProps,
+  withFormik,
+  WithFormikConfig,
+} from 'formik'
 import * as yup from 'yup'
 import { Schema } from 'yup'
 import firebase from '../firebase'
@@ -25,6 +31,8 @@ interface FirestoreFormOptions<Props, Values extends FormikValues, Payload> {
   formik?: EnhancedFormikOptions<Props, Values, Payload>
 }
 
+export type FirestoreFormProps<Value> = InjectedFormikProps<{}, Value>
+
 const firestoreForm = <
   Values extends FormikValues,
   Props = {},
@@ -37,7 +45,7 @@ const firestoreForm = <
     schema,
     formik,
   }: FirestoreFormOptions<Props, Values, Payload>,
-) =>
+): ComponentDecorator<{}, FirestoreFormProps<Values>> =>
   withFormik({
     ...formik,
     validationSchema:
