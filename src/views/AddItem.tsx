@@ -3,11 +3,11 @@ import * as React from 'react'
 import { compose } from 'recompose'
 import * as yup from 'yup'
 import firestoreForm from '../hocs/firestoreForm'
-import withUser from '../hocs/withUser'
-import Item from '../types/Item'
+import withUser, { UserProps } from '../hocs/withUser'
+import { ProtoItem } from '../types/Item'
 import FormField from './FormField'
 
-type Props = InjectedFormikProps<{}, Item>
+type Props = InjectedFormikProps<{}, ProtoItem>
 
 const AddItem = ({ handleSubmit, isSubmitting, ...inputProps }: Props) => (
   <form onSubmit={handleSubmit}>
@@ -20,10 +20,9 @@ const AddItem = ({ handleSubmit, isSubmitting, ...inputProps }: Props) => (
 
 export default compose(
   withUser,
-  firestoreForm('items', {
-    initialValues: { name: '' },
-    transform: (values, { user }) => ({
-      ...values,
+  firestoreForm<ProtoItem, UserProps>('items', {
+    initialValues: ({ user }) => ({
+      name: '',
       userId: user ? user.uid : null,
     }),
     schema: {

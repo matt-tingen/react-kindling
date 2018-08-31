@@ -25,7 +25,11 @@ interface FirestoreFormOptions<Props, Values extends FormikValues, Payload> {
   formik?: EnhancedFormikOptions<Props, Values, Payload>
 }
 
-const firestoreForm = <Props, Values extends FormikValues, Payload = Values>(
+const firestoreForm = <
+  Values extends FormikValues,
+  Props = {},
+  Payload = Values
+>(
   collection: string,
   {
     transform,
