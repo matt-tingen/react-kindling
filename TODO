@@ -1,3 +1,6 @@
+Investigate Realtime Database
+  firestore does not allow setting userId server-side (though it can be enforced with rules)
+  Rules are difficult to debug and not unit testable
 detail page
 update page
 firestore rules
