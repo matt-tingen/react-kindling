@@ -3,8 +3,12 @@ import { Subscribe } from 'unstated'
 import UserContainer from '../store/UserContainer'
 import getDisplayName from './helpers/getDisplayName'
 
+export interface UserProps {
+  user?: firebase.User
+}
+
 const withUser = <Props extends {}>(
-  WrappedComponent: React.ComponentType<Props & { user?: firebase.User }>,
+  WrappedComponent: React.ComponentType<Props & UserProps>,
 ) => {
   const WithUser: React.SFC<Props> = props => (
     <Subscribe to={[UserContainer]}>

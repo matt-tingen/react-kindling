@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { compose } from 'recompose'
 import firestoreList from '../hocs/firestoreList'
-import withUser from '../hocs/withUser'
+import withUser, { UserProps } from '../hocs/withUser'
 import Item from '../types/Item'
 import Loading from './Loading'
 import MiniDeleteButton from './MiniDeleteButton'
@@ -29,7 +29,7 @@ const ItemsList: React.SFC<Props> = ({ items, deleteDoc }) => (
 
 export default compose(
   withUser,
-  firestoreList(
+  firestoreList<UserProps>(
     'items',
     ({ user }) => ({
       where: ['userId', '==', user ? user.uid : null],
