@@ -11,7 +11,9 @@ type AllowedFormikOptions<Props, Values extends FormikValues, Payload> = Omit<
 >
 interface EnhancedFormikOptions<Props, Values extends FormikValues, Payload>
   extends AllowedFormikOptions<Props, Values, Payload> {
-  validationSchema?: Schema<Values> | ((props: Props) => Schema<Values>)
+  validationSchema?:
+    | Schema<Partial<Values>>
+    | ((props: Props) => Schema<Partial<Values>>)
 }
 
 type SchemaShape<T> = { [field in keyof T]: Schema<T[field]> }
@@ -19,7 +21,7 @@ type SchemaShape<T> = { [field in keyof T]: Schema<T[field]> }
 interface FirestoreFormOptions<Props, Values extends FormikValues, Payload> {
   initialValues: Values | ((props: Props) => Values)
   transform?: (values: Values, props: Props) => Payload
-  schema?: MaybeFunction<SchemaShape<Values>, [Props]>
+  schema?: MaybeFunction<SchemaShape<Partial<Values>>, [Props]>
   formik?: EnhancedFormikOptions<Props, Values, Payload>
 }
 
@@ -36,7 +38,8 @@ const firestoreForm = <Props, Values extends FormikValues, Payload = Values>(
     ...formik,
     validationSchema:
       schema &&
-      ((props: Props) => yup.object<Values>().shape(asFunction(schema)(props))),
+      ((props: Props) =>
+        yup.object<Partial<Values>>().shape(asFunction(schema)(props))),
     mapPropsToValues: asFunction(initialValues),
     handleSubmit: (valuesArg, { props, resetForm }) => {
       const values =
