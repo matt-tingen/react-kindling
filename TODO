@@ -5,6 +5,6 @@ detail page
 update page
 firestore rules
 build-react-kindling
-authOnly
+PrivateRoute
 extract some components to a separate package to allow updating?
 logo
