@@ -5,7 +5,7 @@ import { NavLink as NavLink_ } from 'react-router-dom'
 import withProps from '../hocs/withProps'
 
 const Nav = styled('nav')`
-  margin-bottom: 1em;
+  margin: 1em 0;
 `
 
 const activeClass = css`
@@ -14,7 +14,14 @@ const activeClass = css`
 
 const NavLink = withProps({
   activeClassName: activeClass,
-})(NavLink_)
+})(
+  styled(NavLink_)({
+    marginRight: '1em',
+    '&:last-child': {
+      marginRight: 0,
+    },
+  }),
+)
 
 const NavBar: React.SFC = () => (
   <Nav>
