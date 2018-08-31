@@ -1,7 +1,6 @@
-import { InjectedFormikProps } from 'formik'
 import * as React from 'react'
 import styled from 'react-emotion'
-import Omit from '../types/Omit'
+import { InputBundle } from '../hocs/firestoreForm'
 import id from '../utils/id'
 import titleCase from '../utils/titleCase'
 
@@ -13,16 +12,12 @@ const FieldError = styled('div')`
   font-weight: bold;
 `
 
-interface OwnProps<Values> {
+interface Props<Values> {
   label?: string
   type: string
   name: keyof Values & string
+  inputBundle: InputBundle<Values>
 }
-type UnneededProps = 'handleSubmit' | 'isSubmitting'
-type Props<Values> = Omit<
-  InjectedFormikProps<OwnProps<Values>, Values>,
-  UnneededProps
->
 
 class FormField<Values> extends React.Component<Props<Values>> {
   private id: string
@@ -35,13 +30,10 @@ class FormField<Values> extends React.Component<Props<Values>> {
 
   render() {
     const {
-      handleChange,
-      handleBlur,
       name,
       type,
       label,
-      values,
-      errors,
+      inputBundle: { handleChange, handleBlur, values, errors },
     } = this.props
     const { id } = this
     const value = values[name].toString()
