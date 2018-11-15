@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { Subscribe } from 'unstated'
-import UserContainer from '../store/UserContainer'
+import { useUser } from 'src/hooks/user'
 import getDisplayName from './helpers/getDisplayName'
 
 export interface UserProps {
@@ -10,13 +9,10 @@ export interface UserProps {
 const withUser = <Props extends {}>(
   WrappedComponent: React.ComponentType<Props & UserProps>,
 ) => {
-  const WithUser: React.SFC<Props> = props => (
-    <Subscribe to={[UserContainer]}>
-      {(user: UserContainer) => (
-        <WrappedComponent {...props} user={user.state.user} />
-      )}
-    </Subscribe>
-  )
+  const WithUser: React.SFC<Props> = props => {
+    const { user } = useUser()
+    return <WrappedComponent {...props} user={user} />
+  }
   WithUser.displayName = `withUser(${getDisplayName(WrappedComponent)})`
   return WithUser
 }
