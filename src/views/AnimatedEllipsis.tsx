@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'react-emotion'
+import useTimedCounter from 'src/hooks/useTimedCounter'
 import withProps from '../hocs/withProps'
 
 interface DotProps {
@@ -18,44 +19,20 @@ interface Props {
   interval: number
 }
 
-interface State {
-  tick: number
+const AnimatedEllipsis: React.SFC<Props> = ({ interval }) => {
+  const numDots = useTimedCounter(interval, { start: 1, max: 3 })
+
+  return (
+    <span>
+      <Dot visible={numDots > 0} />
+      <Dot visible={numDots > 1} />
+      <Dot visible={numDots > 2} />
+    </span>
+  )
 }
 
-class AnimatedEllipsis extends React.Component<Props, State> {
-  static defaultProps = {
-    interval: 250,
-  }
-
-  private interval: NodeJS.Timer
-
-  state = {
-    tick: 0,
-  }
-
-  constructor(props: Props) {
-    super(props)
-
-    this.interval = setInterval(() => {
-      this.setState(prevState => ({ tick: (prevState.tick + 1) % 4 }))
-    }, props.interval)
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval)
-  }
-
-  render() {
-    const { tick } = this.state
-
-    return (
-      <span>
-        <Dot visible={tick > 0} />
-        <Dot visible={tick > 1} />
-        <Dot visible={tick > 2} />
-      </span>
-    )
-  }
+AnimatedEllipsis.defaultProps = {
+  interval: 250,
 }
 
 export default AnimatedEllipsis
