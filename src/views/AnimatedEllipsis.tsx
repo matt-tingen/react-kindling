@@ -16,11 +16,11 @@ const Dot = withProps({
 )
 
 interface Props {
-  interval: number
+  interval?: number
 }
 
 const AnimatedEllipsis: React.SFC<Props> = ({ interval }) => {
-  const numDots = useTimedCounter(interval, { start: 1, max: 3 })
+  const numDots = useTimedCounter(interval!, { start: 1, max: 3 })
 
   return (
     <span>
