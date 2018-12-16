@@ -20,7 +20,7 @@ const UserContext = React.createContext<ContextValue>({
   logout: noop,
 })
 
-export const useUser = () => React.useContext(UserContext)
+const useUser = () => React.useContext(UserContext)
 
 export const UserProvider: React.SFC = ({ children }) => {
   const [user, { loading, error, wrapUpdater }] = useListener(
@@ -38,3 +38,5 @@ export const UserProvider: React.SFC = ({ children }) => {
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
+
+export default useUser

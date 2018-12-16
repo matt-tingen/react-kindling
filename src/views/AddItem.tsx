@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useUser } from 'src/hooks/user'
+import useUser from 'src/hooks/useUser'
 import * as yup from 'yup'
 import FirestoreForm from './FirestoreForm'
 import FormField from './FormField'

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import GoogleButton from 'react-google-button'
-import { useUser } from 'src/hooks/user'
+import useUser from 'src/hooks/useUser'
 import Loading from './Loading'
 
 const Auth: React.SFC = () => {
