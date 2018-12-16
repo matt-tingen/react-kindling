@@ -12,7 +12,7 @@ const activeClass = css`
   font-weight: bold;
 `
 
-const NavLink = withProps({
+const NavLink = withProps('NavLink', {
   activeClassName: activeClass,
 })(
   styled(NavLink_)({

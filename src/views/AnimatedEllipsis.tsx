@@ -7,7 +7,7 @@ interface DotProps {
   visible: boolean
   children: string
 }
-const Dot = withProps({
+const Dot = withProps('Dot', {
   children: '.',
 })(
   styled('span')<DotProps>(({ visible }) => ({
