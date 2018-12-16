@@ -2,6 +2,8 @@
 
 This is an elaboration on `create-react-app` with the goal of making bootstrapping my side projects much simpler.
 
+It is also a testbed for me to experiment with different features and patterns.
+
 ## Features
 
 - Typescript
@@ -9,7 +11,6 @@ This is an elaboration on `create-react-app` with the goal of making bootstrappi
 - CRUD with Firestore
 - Routing with `react-router`
 - Styling with `emotion`
-- State management with `unstated`
 
 ## Non-Goals
 

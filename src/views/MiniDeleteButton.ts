@@ -1,5 +1,5 @@
 import styled from 'react-emotion'
-import { withProps } from 'recompose'
+import withProps from 'src/hocs/withProps'
 import HTMLProps from '../types/HTMLProps'
 
 interface Props extends HTMLProps<HTMLButtonElement> {
@@ -7,7 +7,7 @@ interface Props extends HTMLProps<HTMLButtonElement> {
   children: string
 }
 
-const MiniDeleteButton = withProps({
+const MiniDeleteButton = withProps('MiniDeleteButton', {
   type: 'button',
   children: 'X',
 })<Props>(styled('button')`
