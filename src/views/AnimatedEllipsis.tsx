@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'react-emotion'
-import useTimedCounter from 'src/hooks/useTimedCounter'
 import withProps from '../hocs/withProps'
+import useTimedCounter from '../hooks/useTimedCounter'
 
 interface DotProps {
   visible: boolean

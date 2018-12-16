@@ -1,6 +1,6 @@
 import * as React from 'react'
-import useFirebaseCollection from 'src/hooks/useFirebaseCollection'
-import useUser from 'src/hooks/useUser'
+import useFirebaseCollection from '../hooks/useFirebaseCollection'
+import useUser from '../hooks/useUser'
 import Loading from './Loading'
 import MiniDeleteButton from './MiniDeleteButton'
 

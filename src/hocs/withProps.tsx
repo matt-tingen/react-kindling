@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Omit from 'src/types/Omit'
+import Omit from '../types/Omit'
 
 const withProps = <InjectedProps extends {}>(
   displayName: string,

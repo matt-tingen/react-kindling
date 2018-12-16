@@ -1,5 +1,5 @@
 import styled from 'react-emotion'
-import withProps from 'src/hocs/withProps'
+import withProps from '../hocs/withProps'
 import HTMLProps from '../types/HTMLProps'
 
 interface Props extends HTMLProps<HTMLButtonElement> {
