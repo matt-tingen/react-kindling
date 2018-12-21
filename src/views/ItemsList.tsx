@@ -1,12 +1,13 @@
 import * as React from 'react'
-import useFirebaseCollection from '../hooks/useFirebaseCollection'
+import useFirebaseList from '../hooks/useFirebaseList'
 import useUser from '../hooks/useUser'
+import { remove } from '../utils/collection'
 import Loading from './Loading'
 import MiniDeleteButton from './MiniDeleteButton'
 
 const ItemsList: React.SFC = () => {
   const { user } = useUser()
-  const [items, { remove }] = useFirebaseCollection(
+  const items = useFirebaseList(
     'items',
     {
       where: ['userId', '==', user ? user.uid : null],
@@ -30,7 +31,7 @@ const ItemsList: React.SFC = () => {
           item && (
             <li key={id}>
               {item.name}
-              <MiniDeleteButton onClick={() => remove(id)} />
+              <MiniDeleteButton onClick={() => remove('items', id)} />
             </li>
           ),
       )}

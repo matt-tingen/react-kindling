@@ -1,23 +1,15 @@
 import { InputIdentityList, useEffect, useState } from 'react'
-import firebase from '../firebase'
 import buildQuery, { QueryRequest } from '../utils/buildQuery'
-
-const db = firebase.firestore()
 
 type DocumentPair<T> = [string, T]
 
 type NullableData<T> = DocumentPair<T>[] | null
 
-interface CollectionOperations<T> {
-  add(data: T): Promise<firebase.firestore.DocumentReference>
-  remove(id: string): Promise<void>
-}
-
-const useFirebaseCollection = <T = firebase.firestore.DocumentData>(
+const useFirebaseList = <T = firebase.firestore.DocumentData>(
   collection: string,
   query: QueryRequest,
   inputs: InputIdentityList,
-): [NullableData<T>, CollectionOperations<T>] => {
+): NullableData<T> => {
   const [docs, setDocs] = useState<NullableData<T>>(null)
   useEffect(
     () =>
@@ -31,17 +23,7 @@ const useFirebaseCollection = <T = firebase.firestore.DocumentData>(
       }),
     inputs,
   )
-  return [
-    docs,
-    {
-      add: (data: T) => db.collection(collection).add(data),
-      remove: (id: string) =>
-        db
-          .collection(collection)
-          .doc(id)
-          .delete(),
-    },
-  ]
+  return docs
 }
 
-export default useFirebaseCollection
+export default useFirebaseList
